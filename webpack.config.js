@@ -5,10 +5,11 @@ const config = {
 	entry: './src/index.js',
 	// 出口
 	output: {
-		path: path.resolve(__dirname, 'build'),
+		path: path.resolve(__dirname, './build'),
 		filename: 'bundle.js',
-		libraryTarget: 'commonjs2'
+		publicPath: "/",
 	},
+	devtool: "sourcemap",
 	// loader,处理非javascript文件
 	module: {
 		rules: [
@@ -20,14 +21,18 @@ const config = {
 				}
 			},
 			{
-				test: /\.sass$/,
-				use: [{
-					loader: "style-loader" // 将 JS 字符串生成为 style 节点
-				},{
-					loader: "css-loader" // 将 CSS 转化成 CommonJS 模块
-				},{
-					loader: "sass-loader" // 将 Sass 编译成 CSS
-				}]
+				test: /\.s?css$/,
+                use: [{
+                    loader: "style-loader"
+                }, {
+                    loader: "css-loader", options: {
+                        sourceMap: true
+                    }
+                }, {
+                    loader: "sass-loader", options: {
+                        sourceMap: true
+                    }
+                }]
 			},
 			{
 		        test: /\.(png|jpg|gif)$/,
