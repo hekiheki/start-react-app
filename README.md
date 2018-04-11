@@ -5,11 +5,6 @@
 3. <del>没有加入react-router和redux等</del>加入了react-router。
 
 
-##目录结构
-
-![](fileTree.png)
-
-
 ## 使用
 
 ```
