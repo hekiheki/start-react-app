@@ -17,7 +17,7 @@ const config = {
 	// 出口
 	output: {
 		path: path.resolve(__dirname, './build'),
-		filename: '[name].[chunkhash].js',
+		filename: '[name].[hash].js',
         chunkFilename: '[name].[chunkhash].js',
 	},
 	devtool: "sourcemap",
