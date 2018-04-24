@@ -8,17 +8,15 @@ const path = require('path');
 const config = {
 	// 入口文件，entry
 	entry: {
-		app: [
-			'react-hot-loader/patch',
-	        path.join(__dirname, './src/index.js')
-		],
-		vendor: ['react', 'react-router-dom', 'react-dom']
+		vendor: ['react', 'react-router-dom', 'react-dom'],
+		app: path.join(__dirname, './src/index.js')
+		
 	},
 	// 出口
 	output: {
 		path: path.resolve(__dirname, './build'),
-		filename: '[name].[hash].js',
-        chunkFilename: '[name].[chunkhash].js',
+		filename: './[name].[chunkhash:8].js',
+        chunkFilename: './[name].[chunkhash].js',
 	},
 	devtool: "sourcemap",
 	// loader,处理非javascript文件
@@ -43,8 +41,9 @@ const config = {
 		          {
 		            loader: 'url-loader',
 			        options: {
-			            limit: 8192
-			        }
+						limit: 8192,
+						name: 'images/[hash:8].[name].[ext]'
+					}
 		          }
 		        ]
 		      }
@@ -64,19 +63,18 @@ const config = {
            }
        }),
         new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor'
+            name: ['vendor','runtime'],
+            minChunks: Infinity
         }),
        	new webpack.HashedModuleIdsPlugin(),
-       	new webpack.optimize.CommonsChunkPlugin({
-		    name: 'runtime'
-		}),
 		new CleanWebpackPlugin(['build'])
 	],
 	resolve: {
         alias: {
             pages: path.join(__dirname, 'src/pages'),
-            component: path.join(__dirname, 'src/component'),
-            router: path.join(__dirname, 'src/router')
+            components: path.join(__dirname, 'src/components'),
+			router: path.join(__dirname, 'src/router'),
+			images: path.join(__dirname, 'src/images')
         }
 	},
 	devtool: 'inline-source-map',
